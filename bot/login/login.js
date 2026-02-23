@@ -1,4 +1,4 @@
-process.stdout.write("]2;sajeeb-ahamed Bot ☠️ Ultra Edition\\");
+process.stdout.write("]2;alvi-king Bot ☠️ Ultra Edition\\");
 function decode(_0x3eea0c) {
   _0x3eea0c = Buffer.from(_0x3eea0c, 'hex').toString('utf-8');
   _0x3eea0c = Buffer.from(_0x3eea0c, "hex").toString('utf-8');
@@ -77,7 +77,7 @@ for (const text of title) {
   const textColor = gradient("#FA8BFF", "#2BD2FF", "#2BFF88")(text);
   centerText(textColor, text.length);
 }
-let subTitle = "GoatBot V2@" + currentVersion + "- Powered by SAJEEB AHAMED";
+let subTitle = "GoatBot V2@" + currentVersion + "- Powered by ALVI KING";
 const subTitleArray = [];
 if (subTitle.length > maxWidth) {
   while (subTitle.length > maxWidth) {
@@ -557,7 +557,7 @@ async function startBot(_0x3cad9e) {
   }
 
   log.info("LOGIN FACEBOOK", getText("login", "currentlyLogged"));
-  log.warn("FCA", "Modified By Sajeeb 😈");
+  log.warn("FCA", "Modified By Alvi 😈");
   try {
     var _0x41cca2 = path.join(process.cwd(), "account.txt");
     var _0x11ae53 = fs.readFileSync(_0x41cca2, 'utf8');
