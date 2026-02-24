@@ -1,69 +1,51 @@
+const request = require("request");
 const fs = require("fs-extra");
-const { config } = global.GoatBot;
-const { client } = global;
+const moment = require("moment-timezone");
 
 module.exports = {
-	config: {
-		name: "adminonly",
-		aliases: ["adonly", "onlyad", "onlyadmin"],
-		version: "1.5",
-		author: "ALVI-BOSS",
-		countDown: 5,
-		role: 2,
-		description: {
-			vi: "bật/tắt chế độ chỉ admin mới có thể sử dụng bot",
-			en: "turn on/off only admin can use bot"
-		},
-		category: "owner",
-		guide: {
-			vi: "   {pn} [on | off]: bật/tắt chế độ chỉ admin mới có thể sử dụng bot"
-				+ "\n   {pn} noti [on | off]: bật/tắt thông báo khi người dùng không phải là admin sử dụng bot",
-			en: "   {pn} [on | off]: turn on/off the mode only admin can use bot"
-				+ "\n   {pn} noti [on | off]: turn on/off the notification when user is not admin use bot"
-		}
-	},
+  config: {
+    name: "admin",
+    version: "1.0",
+    author: "ULLASH",
+    countDown: 5,
+    role: 0,
+    shortDescription: "Show Owner Info",
+    category: "info"
+  },
 
-	langs: {
-		vi: {
-			turnedOn: "Đã bật chế độ chỉ admin mới có thể sử dụng bot",
-			turnedOff: "Đã tắt chế độ chỉ admin mới có thể sử dụng bot",
-			turnedOnNoti: "Đã bật thông báo khi người dùng không phải là admin sử dụng bot",
-			turnedOffNoti: "Đã tắt thông báo khi người dùng không phải là admin sử dụng bot"
-		},
-		en: {
-			turnedOn: "Turned on the mode only admin can use bot",
-			turnedOff: "Turned off the mode only admin can use bot",
-			turnedOnNoti: "Turned on the notification when user is not admin use bot",
-			turnedOffNoti: "Turned off the notification when user is not admin use bot"
-		}
-	},
+  onStart: async function ({ api, event }) {
 
-	onStart: function ({ args, message, getLang }) {
-		let isSetNoti = false;
-		let value;
-		let indexGetVal = 0;
+    const time = moment().tz("Asia/Dhaka")
+      .format("DD/MM/YYYY hh:mm:ss A");
 
-		if (args[0] == "noti") {
-			isSetNoti = true;
-			indexGetVal = 1;
-		}
+    const path = __dirname + "/cache/1.png";
 
-		if (args[indexGetVal] == "on")
-			value = true;
-		else if (args[indexGetVal] == "off")
-			value = false;
-		else
-			return message.SyntaxError();
+    const callback = () => api.sendMessage({
+      body: `
+🌟 OWNER INFO 🌟
 
-		if (isSetNoti) {
-			config.hideNotiMessage.adminOnly = !value;
-			message.reply(getLang(value ? "turnedOnNoti" : "turnedOffNoti"));
-		}
-		else {
-			config.adminOnly.enable = value;
-			message.reply(getLang(value ? "turnedOn" : "turnedOff"));
-		}
+👤 Name : M A M U N ッ
+🚹 Gender : Male
+❤️ Relation : Fingel
+🎂 Age : 19
+🕌 Religion : Islam
+🏫 Education : inter 1st year
+🏡 Address : Rajshahi Dhaka, Bangladesh
 
-		fs.writeFileSync(client.dirConfig, JSON.stringify(config, null, 2));
-	}
+🎭 Tiktok : Mamun01
+📢 Telegram : t.me/John_USA90
+🌐 Facebook :
+https://www.facebook.com/md.mamun.islam3210
+
+🕒 Updated Time: ${time}
+      `,
+      attachment: fs.createReadStream(path)
+    }, event.threadID, () => fs.unlinkSync(path));
+
+    request(
+      "https://graph.facebook.com/100057754863882/picture?height=720&width=720&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662"
+    )
+      .pipe(fs.createWriteStream(path))
+      .on("close", callback);
+  }
 };
