@@ -14,16 +14,24 @@ module.exports = {
   onStart: async function ({ message, api, event }) {
 
     const adminInfo = `
-👑 𝗕𝗢𝗧 𝗔𝗗𝗠𝗜𝗡 𝗜𝗡𝗙𝗢 👑
-
-🧑 Owner : Md Mamun Islam 
-🤖 Bot Name : GoatBot V2
-⚙️ Version : 1.0
-🌐 Platform : Messenger
-📌 Prefix : /
-💻 Status : Running ✅
-
-✨ Thanks for using GoatBot
+━━━━━━━━━━━━━━━━━━━━━┓
+‎┃      🌟 𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢 🌟      
+‎┣━━━━━━━━━━━━━━━━━━━━━┫
+‎┃ 👤 Name      : M A M U N ッ
+‎┃ 🚹 Gender    : Male
+‎┃ ❤️ Relation  : Single
+‎┃ 🎂 Age       : 19
+‎┃ 🕌 Religion   : Islam
+‎┃ 🏫 Education : Inter 1st Year
+‎┃ 🏡 Address   : Rajshahi, Bangladesh
+‎┣━━━━━━━━━━━━━━━━━━━━━┫
+‎┃ 🎭 Tiktok    : Mamun01
+‎┃ 📢 Telegram  : t.me/John_USA90
+‎┃ 🌐 Facebook  : https://www.facebook.com/md.mamun.islam3210
+‎┣━━━━━━━━━━━━━━━━━━━━━┫
+‎┃ 🕒 Updated Time: ${time}
+‎┗━━━━━━━━━━━━━━━━━━━━━┛
+‎    
 `;
 
     return message.reply(adminInfo);
