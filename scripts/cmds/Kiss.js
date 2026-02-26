@@ -1,43 +1,50 @@
+const axios = require("axios");
+
 module.exports = {
   config: {
     name: "kiss",
-    version: "1.0",
-    author: "mamun",
+    version: "2.0",
+    author: "ADMIN BAPPI",
     countDown: 5,
     role: 0,
     shortDescription: "Send a kiss 💋",
-    longDescription: "Kiss someone in the chat",
+    longDescription: "Kiss someone in chat",
     category: "fun",
     guide: "{pn} @mention"
   },
 
-  onStart: async function ({ api, event, args, usersData }) {
+  onStart: async function ({ api, event }) {
 
-    const mention = Object.keys(event.mentions);
-
-    if (mention.length === 0) {
-      return api.sendMessage("💋 | Tag someone to kiss!", event.threadID);
+    if (!event.mentions || Object.keys(event.mentions).length == 0) {
+      return api.sendMessage("💋 কাউকে mention করো!", event.threadID);
     }
 
-    const senderName = await usersData.getName(event.senderID);
-    const targetName = await usersData.getName(mention[0]);
+    const mention = Object.keys(event.mentions)[0];
+    const name = event.mentions[mention];
 
-    const kissGifs = [
-      "https://i.imgur.com/7rl9E2K.gif",
-      "https://i.imgur.com/Vl6Zp.gif",
-      "https://i.imgur.com/8Gh7Q.gif",
-      "https://i.imgur.com/kissanime.gif"
-    ];
+    try {
 
-    const randomGif =
-      kissGifs[Math.floor(Math.random() * kissGifs.length)];
+      // safer API (less 429 error)
+      const res = await axios.get(
+        "https://nekos.life/api/v2/img/kiss"
+      );
 
-    api.sendMessage(
-      {
-        body: `💋 ${senderName} kissed ${targetName}! ❤️`,
-        attachment: await global.utils.getStreamFromURL(randomGif)
-      },
-      event.threadID
-    );
+      const img = res.data.url;
+
+      api.sendMessage(
+        {
+          body: `💋 ${name} কে Kiss দিলো 😘`,
+          attachment: await global.utils.getStreamFromURL(img)
+        },
+        event.threadID
+      );
+
+    } catch (e) {
+      console.log(e);
+      api.sendMessage(
+        "⚠️ API busy, একটু পরে আবার চেষ্টা করো!",
+        event.threadID
+      );
+    }
   }
 };
