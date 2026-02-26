@@ -26,7 +26,7 @@ module.exports = {
         // new stable API
         const res = await axios({
           method: "GET",
-          url: "https://api.waifu.pics/sfw/kiss",
+          url: "https://simsimi-api-tjb1.onrender.com",
           timeout: 10000
         });
         return res.data.url;
